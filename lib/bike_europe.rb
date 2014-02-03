@@ -17,7 +17,6 @@ class BikeEurope
   def shortest_road_of_current_city
     roads = @current_city.roads
     roads_available = roads.reject{|road| !new_road?(road) }
-    debugger
     roads_available.min_by{|road| road.distance}
   end
 
