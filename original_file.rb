@@ -127,29 +127,29 @@
 #   ALL.add new(City::Milan,     City::Rome)
 # end
 
-Start = City::Rome
-End   = City::Berlin
+# Start = City::Rome
+# End   = City::Berlin
 
 
-# Make a list of cities from Rome to Berlin
-result = [] # <-- your code goes here!!!!
+# # Make a list of cities from Rome to Berlin
+# result = [] # <-- your code goes here!!!!
 
 
-if result.first != Start || result.last != End
-  puts "Not done yet!"
-  puts "You need the 'result' variable to be a list of cities"
-  exit 1
-end
-total_distance = 0
-result.each_with_index do |city, idx|
-  print city
-  if next_city = result[idx+1]
-    distance = Road.between(city, next_city).distance
-    total_distance += distance
-    puts " -> #{"%.0f" % distance}"
-  end
-end
-print "arrived in #{result.size} steps "
-print "(#{"%.0f" % total_distance} km)"
-puts ""
-puts ""
+# if result.first != Start || result.last != End
+#   puts "Not done yet!"
+#   puts "You need the 'result' variable to be a list of cities"
+#   exit 1
+# end
+# total_distance = 0
+# result.each_with_index do |city, idx|
+#   print city
+#   if next_city = result[idx+1]
+#     distance = Road.between(city, next_city).distance
+#     total_distance += distance
+#     puts " -> #{"%.0f" % distance}"
+#   end
+# end
+# print "arrived in #{result.size} steps "
+# print "(#{"%.0f" % total_distance} km)"
+# puts ""
+# puts ""

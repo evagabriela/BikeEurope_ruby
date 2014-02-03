@@ -1,6 +1,5 @@
 
 class Road
-
   require 'set'
   ALL = Set.new
 
@@ -29,25 +28,28 @@ class Road
     raise "There is no road between " + a.to_s + " and " + b.to_s
   end
 
-  ALL.add new(City::Hamburg,   City::Berlin)
-  ALL.add new(City::Hamburg,   City::Antwerp)
-  ALL.add new(City::Hamburg,   City::Frankfurt)
-  ALL.add new(City::Berlin,    City::Warsaw)
-  ALL.add new(City::Berlin,    City::Prague)
-  ALL.add new(City::Antwerp,   City::Paris)
-  ALL.add new(City::Paris,     City::Tours)
-  ALL.add new(City::Paris,     City::Lyon)
-  ALL.add new(City::Paris,     City::Zurich)
-  ALL.add new(City::Paris,     City::Frankfurt)
-  ALL.add new(City::Frankfurt, City::Prague)
-  ALL.add new(City::Krakow,    City::Warsaw)
-  ALL.add new(City::Krakow,    City::Prague)
-  ALL.add new(City::Krakow,    City::Vienna)
-  ALL.add new(City::Vienna,    City::Munich)
-  ALL.add new(City::Vienna,    City::Prague)
-  ALL.add new(City::Zurich,    City::Milan)
-  ALL.add new(City::Lyon,      City::Torino)
-  ALL.add new(City::Torino,    City::Milan)
-  ALL.add new(City::Torino,    City::Rome)
-  ALL.add new(City::Milan,     City::Rome)
+  ALL.add self.new(City::Hamburg,   City::Berlin)
+  ALL.add self.new(City::Hamburg,   City::Antwerp)
+  ALL.add self.new(City::Hamburg,   City::Frankfurt)
+  ALL.add self.new(City::Berlin,    City::Warsaw)
+  ALL.add self.new(City::Berlin,    City::Prague)
+  ALL.add self.new(City::Antwerp,   City::Paris)
+  ALL.add self.new(City::Paris,     City::Tours)
+  ALL.add self.new(City::Paris,     City::Lyon)
+  ALL.add self.new(City::Paris,     City::Zurich)
+  ALL.add self.new(City::Paris,     City::Frankfurt)
+  ALL.add self.new(City::Frankfurt, City::Prague)
+  ALL.add self.new(City::Krakow,    City::Warsaw)
+  ALL.add self.new(City::Krakow,    City::Prague)
+  ALL.add self.new(City::Krakow,    City::Vienna)
+  ALL.add self.new(City::Vienna,    City::Munich)
+  ALL.add self.new(City::Vienna,    City::Prague)
+  ALL.add self.new(City::Zurich,    City::Milan)
+  ALL.add self.new(City::Lyon,      City::Torino)
+  ALL.add self.new(City::Torino,    City::Milan)
+  ALL.add self.new(City::Torino,    City::Rome)
+  ALL.add self.new(City::Milan,     City::Rome)
+  
+
 end
+
