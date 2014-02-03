@@ -14,21 +14,6 @@ class BikeEurope
     @visited_cities = [start_city]
   end
 
-  #Make a list of cities from Rome to Berlin
-  def distance_between_cities
-    start_city = City::Rome
-    end_city = City::Berlin  
-    roads_city = Road.new(start_city, end_city)
-    puts roads_city
-    # cities_berlin = City.new('Berlin',    52.482668, 13.359275)
-    # puts cities_berlin
-    
-
-    # roads = Road.new(start_city, end_city)
-    # roads.
-    # results = []  
-  end
-
   def shortest_road_of_current_city
     roads = @current_city.roads
     roads_available = roads.reject{|road| !new_road?(road) }
@@ -113,15 +98,6 @@ Start = City::Rome
 End   = City::Berlin
 
 bike_ride = BikeEurope.new(Start, End)
-# shortest_road = bike_ride.shortest_road_of_current_city
-# p bike_ride.bike_on_road(shortest_road)
-# p bike_ride.visited_cities
-# shortest_road = bike_ride.shortest_road_of_current_city
-# bike_ride.bike_on_road(shortest_road)
-# p bike_ride.visited_cities
 
 p bike_ride.results!
 
-
-# myRoad.distance_between_cities
-# myRoad.shortest_path!
