@@ -17,13 +17,25 @@ class BikeEurope
   def shortest_road_of_current_city
     roads = @current_city.roads
     roads_available = roads.reject{|road| !new_road?(road) }
+    # here it choose the shortest path based on distance
+    
     roads_available.min_by{|road| road.distance}
+    # it output the shortest distance path
   end
 
   def new_road?(road)
     destination_city = road.the_city_opposite(@current_city)
    !@visited_cities.include?(destination_city)
   end
+
+  def roads_left_behind
+    # create an array with those cities left behind
+    # when path was choosen (under shortest path condition)
+    roads = @current_city.roads
+    roads_left_behind = roads.reject{|road| !new_road?(road)}
+    roads_left_behind.max_by{|road| road.distance}
+  end
+
   
   def bike_on_road(road)
     destination_city = road.the_city_opposite(@current_city)
@@ -98,5 +110,7 @@ End   = City::Berlin
 
 bike_ride = BikeEurope.new(Start, End)
 
-p bike_ride.results!
+p bike_ride.roads_left_behind
+
+# p bike_ride.results!
 
