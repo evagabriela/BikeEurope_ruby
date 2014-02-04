@@ -4,7 +4,7 @@ This is a graph traversal problem that I am solving using Ruby
 ![image](https://s3-us-west-1.amazonaws.com/bikeeurope/europemap.jpg)
 
 ###Status###
-Work in progress...
+Final draft but need refactoring code to make it cleaner
 
   Current Status:
 
@@ -23,11 +23,7 @@ Work in progress...
    (As seen in terminal...)
 
     bike_europe [master] :> ruby lib/bike_europe.rb
-    
-    Milan
-    Torino
-    Lyon
-    Paris
-    Tours
+
+[Rome, Torino, Lyon, Paris, Antwerp, Hamburg, Berlin]
 
 
