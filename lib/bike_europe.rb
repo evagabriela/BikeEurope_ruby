@@ -12,66 +12,85 @@ class BikeEurope
     @start_city, @end_city = start_city, end_city
     @current_city = start_city
     @visited_cities = [start_city]
+    @destinations_left_behind = []
   end
 
 
-  def shortest_road_of_current_city
-    # An array of roads 
-    # roads = @current_city.roads
-    # # An array of roads available which is:
-    # #   all roads except the "not" new roads:
-    # roads_available = roads.reject{|road| !new_road?(road) }
-    # here I choose the shortest path based on distance
-    # debugger
-    self.roads_available.min_by{|road| road.distance}
-    # it output the shortest distance path
-  end
-
-  def new_road?(road)
+  # we are at a current city, about to bike on 'road'
+  def bike_on_road(road)
+    
+    @destinations_left_behind += missed_destinations(road)
+    puts "missed destinations:", @destinations_left_behind
     destination_city = road.the_city_opposite(@current_city)
-   !@visited_cities.include?(destination_city)
+
+    # we have arrived at the city now
+    @current_city = destination_city
+
+    @visited_cities <<  @current_city
+
   end
 
-  def roads_left_behind
-    # output all the roads left behind
-    # when path was choosen (under shortest path condition)
-    roads = @current_city.roads
+  def pick_road
+    all_roads = @current_city.roads
+    puts "all choices", all_roads
+      # Ignore all the roads that go to a city that we visited
+      all_roads.delete_if{|road| goes_to_visited_city?(road) }
+      puts "after ignoring visited cities:", all_roads
+      # Ignore all the roads that go to cities that we left behind (missed cities)
+      all_roads.delete_if{|road| goes_to_missed_cities?(road)}
+      puts "after ignoring missed cities", all_roads
+      all_roads.min_by{|road| road.distance}
+
+  end
+
+  def results!
+    # LOOP
+    # current city
+    # pick_road
+    # bike(road)
+    until @current_city == @end_city
+      puts "current city:", @current_city
+      road = pick_road
+      puts "choice:", road
+      bike_on_road(road)
+    end
+    @visited_cities
+  end
+
+  private
+
+  # def shortest_road_of_current_city
+  #   self.roads_available.min_by{|road| road.distance}
+  # end
+
+  def goes_to_missed_cities?(road)
+    destination = road.the_city_opposite(@current_city)
+    @destinations_left_behind.include?(destination)
+  end
+
+  def goes_to_visited_city?(road)
+    destination = road.the_city_opposite(@current_city)
+    @visited_cities.include?(destination)
+  end
+
+  # the missed destinations for current city
+  def missed_destinations(chosen_road)
     # An array of all the roads left behind
-    roads_left_behind = roads.reject{|road| new_road?(road)}
+    roads_left_behind = roads_available.reject {|road| road == chosen_road }
+    # collect the destination left behind with those roads 
+    roads_left_behind.map { |road| road.the_city_opposite(@current_city)}
+
   end
 
   def roads_available
     roads = @current_city.roads
-    roads_available = roads.reject{|road| !new_road?(road) }
+    roads_available = roads.reject{|road| goes_to_visited_city?(road) }
   end
 
-  
-  def bike_on_road(road)
-    destination_city = road.the_city_opposite(@current_city)
-    @current_city = destination_city
-    @visited_cities <<  @current_city
-  end
 
-  def results!
-    until @current_city == @end_city
-      # Road object:
-      shortest_road = self.shortest_road_of_current_city
-      roads_left = self.roads_left_behind
-      only_road = self.roads_available[0]
-#     if only road available, bike_on_road
-      if self.roads_available.length == 1
-          self.bike_on_road(only_road)
-    # if the shortest road is not one of the roads left behind, then bike on road
-      else
-        if shortest_road!= roads_left
-        self.bike_on_road(only_road)  
-        end    
-      end
+end 
 
-    end
-    @visited_cities
-  end
-  # Pseudocode
+# Pseudocode
   # Finding Shortest distance:
     # going to each road
     # find the distance of each of them
@@ -92,10 +111,6 @@ class BikeEurope
 
 
   # =============
-
-end 
-
-
 
 # >>>>>>>>>>>>>>>>>>>       From Original Code      <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
