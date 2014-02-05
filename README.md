@@ -4,7 +4,10 @@ This is a graph traversal problem that I am solving using Ruby
 ![image](https://s3-us-west-1.amazonaws.com/bikeeurope/europemap.jpg)
 
 ###Status###
-Final draft but need refactoring code to make it cleaner
+Master:  Algorithm 1 where logic are based on:
+
+ + First: Pick the road with the shortest distance 
+ + Second: Ignore all the roads left behind
 
   Current Status:
 
@@ -34,3 +37,10 @@ Final draft but need refactoring code to make it cleaner
  + First: Ignore all the roads that go to a city that we visited
  + Second: Ignore all the roads that go to cities that we left behind (missed cities)
  + Third and Finally: Pick the road with the shortest distance 
+
+ ## Redo New Algorithm ###
+
+ ### Adding Logic based on order:  
+
+ + First: Collect all the total distances between all the possible roads until it hits the destination
+ + Second: Compare the output of first step and choose the one with shortest distance 
