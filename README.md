@@ -27,3 +27,10 @@ Final draft but need refactoring code to make it cleaner
 [Rome, Torino, Lyon, Paris, Antwerp, Hamburg, Berlin]
 
 
+## Rector Code Updates ###
+
+### Adding Logic based on order:  
+
+ + First: Ignore all the roads that go to a city that we visited
+ + Second: Ignore all the roads that go to cities that we left behind (missed cities)
+ + Third and Finally: Pick the road with the shortest distance 
