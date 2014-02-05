@@ -90,27 +90,48 @@ class BikeEurope
 
 end 
 
-# Pseudocode
+# >>>>>>>>>>>>>>>>>>>>>>        Dijkstra's algorithm    <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# Let the node at which we are starting be called the initial node.
+# Let the distance of node Y be the distance from the initial node to Y.
+# Dijkstra's algorithm will assign some initial distance values and will
+# try to improve them step by step:
+
+# 1. Assign to every node a tentative distance value: set it to zero for our initial node and to infinity for all other nodes.
+# 2. Mark all nodes unvisited. Set the initial node as current. Create a set of the unvisited nodes called the unvisited set 
+#   consisting of all the nodes.
+# 3. For the current node, consider all of its unvisited neighbors and calculate their tentative distances. For example, 
+#   if the current node A is marked with a distance of 6, and the edge connecting it with a neighbor B has length 2, 
+#   then the distance to B (through A) will be 6 + 2 = 8.
+# 4.When we are done considering all of the neighbors of the current node, mark the current node as visited and remove it 
+#   from the unvisited set.   A visited node will never be checked again.
+# 5. If the destination node has been marked visited (when planning a route between two specific nodes) or if the smallest 
+#   tentative distance among the nodes in the unvisited set is infinity (when planning a complete traversal; occurs when
+#   there is no connection between the initial node and remaining unvisited nodes), then stop. The algorithm has finished.
+# 6. Select the unvisited node that is marked with the smallest tentative distance, and set it as the new "current node" then 
+  # go back to step 3.
+
+
+# >>>>>>>>>>>>>>>>>>>>>>        Gaby's algorithm      <<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# Pseudocode for Gaby's algorithm:
   # Finding Shortest distance:
     # going to each road
     # find the distance of each of them
     # sort it by the shortest to longest distance
     # return the road with the shortest distance 
 
+    # Implementation
+      # Start with start_city
+    # >> New w/exeption << :  if only road available, bike_on_road
+    # else
+      # Select the shortest distance for the next city
+      # continue doing loop
+      # end when hits end_city
+      # >>>>>>>>>>>>EXCEPTION<<<<<<<<<<<<
+        # dont go backwards:
+        # bike on road to shortest road but dont bike to roads left 
 
-  # Start with start_city
-# >> New w/exeption << :  if only road available, bike_on_road
-# else
-  # Select the shortest distance for the next city
-  # continue doing loop
-  # end when hits end_city
-
-# >>>>>>>>>>>>EXCEPTION<<<<<<<<<<<<
-  # dont go backwards:
-    # bike on road to shortest road but dont bike to roads left 
-
-
-  # =============
 
 # >>>>>>>>>>>>>>>>>>>       From Original Code      <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
