@@ -93,16 +93,56 @@ end
 # >>>>>>>>>>>>>>>>>>>>>>        Dijkstra's algorithm    <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 # Let the node at which we are starting be called the initial node.
+
+  # Start = City::Rome => initial node 
+
 # Let the distance of node Y be the distance from the initial node to Y.
+
+  # the distance of city Y (any city), be the distance from Rome to city Y
+  # Other important notes:  The distance between cities are not unique and the distance depends on the road that we take 
+
 # Dijkstra's algorithm will assign some initial distance values and will
 # try to improve them step by step:
+  # improving means to find the shortest distance 
 
 # 1. Assign to every node a tentative distance value: set it to zero for our initial node and to infinity for all other nodes.
+    # Set initial distance value of zero for our start city (Rome) and infinite distance for all other cities (Y)
+    INFINITY = 9999999999
+    Start = City::Rome
+
+    Other_cities = City.all.delete(Start) 
+    cities_distances = {}
+    cities_distances[Start] = 0
+    # city = key
+    # distance = value 
+    Other_cities.each { |city| cities_distances[city] = INFINITY  }
+
 # 2. Mark all nodes unvisited. Set the initial node as current. Create a set of the unvisited nodes called the unvisited set 
 #   consisting of all the nodes.
+    # Set all cities unvisited. 
+    # the initial city is equal to the current_city
+    # create a list with all the unvisited cities
+
+    cities_visited = {}
+    City.all.each{|city| cities_visited[city] = false}
+ 
+    current_city = Start
+
+    cities_unvisited = []
+
+    cities_visited.each do |city, visited|
+      if !visited
+        cities_unvisited << city
+      end
+    end
+
+
 # 3. For the current node, consider all of its unvisited neighbors and calculate their tentative distances. For example, 
 #   if the current node A is marked with a distance of 6, and the edge connecting it with a neighbor B has length 2, 
 #   then the distance to B (through A) will be 6 + 2 = 8.
+
+
+
 # 4.When we are done considering all of the neighbors of the current node, mark the current node as visited and remove it 
 #   from the unvisited set.   A visited node will never be checked again.
 # 5. If the destination node has been marked visited (when planning a route between two specific nodes) or if the smallest 
@@ -111,6 +151,11 @@ end
 # 6. Select the unvisited node that is marked with the smallest tentative distance, and set it as the new "current node" then 
   # go back to step 3.
 
+# Link: http://en.wikipedia.org/wiki/Dijkstra's_algorithm
+
+# Notes:
+# Nodes => points
+# Edge => nature of relationship
 
 # >>>>>>>>>>>>>>>>>>>>>>        Gaby's algorithm      <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 

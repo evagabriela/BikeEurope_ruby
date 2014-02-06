@@ -44,4 +44,8 @@ class City
   def ==(other)
     self.lat == other.lat && self.lng == other.lng
   end
+
+  def self.all
+    [Berlin, Paris, Milan, Frankfurt, Munich, Zurich, Tours, Lyon, Vienna, Prague, Krakow, Warsaw, Hamburg, Antwerp, Torino, Rome]
+  end
 end
