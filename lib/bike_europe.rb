@@ -109,8 +109,14 @@ end
       # Set initial distance value of zero for our start city (Rome) and infinite distance for all other cities (Y)
       INFINITY = 9999999999
       Start = City::Rome
+   
 
+      # result = {
+      #   :city_destination => [city, city ]
+      # }
       other_cities = City.all.delete(Start) 
+
+
       
       # distance_from_start_hash contains our distance (which was provided) from a given city to start
       # this distance is our best guess at the shortest distance
@@ -121,17 +127,28 @@ end
       # the distance from Paris to Start (Rome)
       # distance_from_start_hash[Paris]  # => 200
       distance_from_start_hash = {}
+      result = {}
 
       distance_from_start_hash[Start] = 0
+      result[Start] = [Start]
       # city = key
       # distance = value 
       other_cities.each { |city| distance_from_start_hash[city] = INFINITY  }
+      other_cities.each {|city| result[city] = []}
+
+      # SUMMARY:  WE ARE SETTING ALL THE CITIES DISTANCES EXPECT THE START CITY TO HAVE INFINITE DISTANCE
 
 # 2. Mark all nodes unvisited. Set the initial node as current. Create a set of the unvisited nodes called the unvisited set 
 #   consisting of all the nodes.
       # Set all cities unvisited. 
       # the initial city is equal to the current_city
       # create a list with all the unvisited cities
+      # was_city_visited = {
+      #   :torino => false
+      #   :milan => false
+      # }
+
+     # was_city_visited[torino] = true
 
       was_city_visited = {}
       City.all.each{|city| was_city_visited[city] = false}
@@ -146,6 +163,9 @@ end
         end
       end
 
+      # SUMMARY: WE ARE SETTING IF WE VISITED THE CITY OR NOT AND DEFINING CURRECT CITY  AND CREATE THE UNVISITED CITY LIST 
+
+
 # 3. For the current node, consider all of its unvisited neighbors and calculate their tentative distances. For example, 
 #   if the current node A is marked with a distance of 6, and the edge connecting it with a neighbor B has length 2, 
 #   then the distance to B (through A) will be 6 + 2 = 8.
@@ -153,13 +173,10 @@ end
       # For the current city, consider all the unvisited neighbor cities
       # Calculate their tentative distances of the current city to the unvisited neighbor cities based on the shortest one between current city and the unvisited citites (ex. if the distance
         # is infinite then replace that with 200km )
-
       current_city 
       neighbor_cities 
       unvisited_neighbor_cities
       distance_from_start_hash
-
-
       neighbor_cities = current_city.adjacent_cities
       # unvisited_neighbor_cities = unvisited_cities.select{|unvisited_city| neighbor_cities.include?(unvisited_city) }
       unvisited_neighbor_cities = neighbor_cities & unvisited_cities
@@ -174,33 +191,96 @@ end
 
           distance_from_start_to_neighbor_city = distance_from_current_city_to_neighbor_city + distance_from_start_hash[current_city]
 
-          if distance_from_currentcity_to_neighbor_city < distance_from_start_hash[city]
-            distance_from_start_hash[city] = distance_from_currentcity_to_neighbor_city 
+          if distance_from_current_city_to_neighbor_city < distance_from_start_hash[city]
+            distance_from_start_hash[city] = distance_from_current_city_to_neighbor_city 
+
+            results[city] << current_city  #a hash with everything except the city itself, ex if you ask for the path of berlin it gives you everything except berlin
           end
 
         end
 
+    # SUMMARY:  WE ARE SETTING UP THE DISTANCES BETWEEN THE START CITY AND THE UNVISITED NEIGHBOR CITIES.
+              # IF WE FIND THAT THE DISTANCE BETWEEN THE START CITY AND THE NEIGHBOOR UNVISITED CITY IS LESS THAN THE CURRENT DISTANCE CITY set there THEN WE 
+              # REPLACE it
+
+                # CALCULATE THE OPTIONS
+
+
 # 4.When we are done considering all of the neighbors of the current node, mark the current node as visited and remove it 
-#   from the unvisited set.   A visited node will never be checked again.
+  # from the unvisited set.   
+  # A visited node will never be checked again.
+
+    # mark the current city as visited city and take it out from the unvisited city list 
 
   current_city
-  neighbor_cities
-  unvisited_neighbor_cities
+  unvisited_cities
+  was_city_visited
  
+  was_city_visited[current_city] = true
 
+  unvisited_cities.reject!{|unvisited_city| current_city == unvisited_city}
 
-    
-
-
-
-
-
+  # SUMMARY:  WHEN I CALCULATE THE DISTANCE BETWEEN THE CURRENT CITY AND NEIGHBOR CITIES THEN MARK THE CURRENT CITY AS VISITED CITY AND THEN TAKE THE 
+  # VISITED CITY OUT FROM THE UNVISITED CITIES LIST 
+      # WHEN YOU ALREADY CALCULLATED THE OPTIONS, MARK CURRENT CITY AS VISITED CITY
 
 # 5. If the destination node has been marked visited (when planning a route between two specific nodes) or if the smallest 
 #   tentative distance among the nodes in the unvisited set is infinity (when planning a complete traversal; occurs when
 #   there is no connection between the initial node and remaining unvisited nodes), then stop. The algorithm has finished.
+
+  destination_city 
+  was_city_visited
+  route_plan
+  distance_from_start_hash
+  unvisited_cities
+
+  destination_city = unvisited_city_min_distance
+
+  unvisited_city_min_distance = unvisited_cities.min_by do |city|
+                                  distance_from_start_hash[city]
+                                end
+
+  if !unvisited_cities.include?(destination_city) || distance_from_start_hash[unvisited_city_min_distance]== INFINITE
+    # return distance_from_start_hash[end_city ]
+    return results[end_city].push end_city
+  end
+
+  p results 
+
+
+# SUMMARY:  IF ALL THE DESTINATION Was VISITED OR THE DESTINATIONS HAVE DISTANCE BETWEN THEM AS INFINITE (WHICH MEANS THAT WE NEVER VISITED) THEN 
+#           THEN WE STOP => WHICH MEANS THAT WE VISITED EVERYTHING AND NOW WE HAVE OUR HASH WITH ALL THE INFORMATION WE NEED WHICH IS THE SHORTEST
+#           DISTANCES
+
+#           Do all of this until you visited all cities except the ones that are outise of the road path 
+
 # 6. Select the unvisited node that is marked with the smallest tentative distance, and set it as the new "current node" then 
   # go back to step 3.
+
+  # FROM ALL THE UNVISITED CITIES, FIND THE ONE WITH THE SMALLEST DISTANCE 
+  # MAKE THAT "ONE"  AS THE CURRENT CITY
+  # GO BACK TO STEP 3
+
+  unvisited_city_min_distance
+  unvisited_cities
+  distance_from_start_hash
+  current_city
+
+  if unvisited_city_min_distance !== nil
+
+    unvisited_city_min_distance = unvisited_cities.min_by do |city|
+                                    distance_from_start_hash[city]
+                                  end
+
+    current_city = unvisited_city_min_distance
+
+    step 3 
+  end
+
+  # SUMMARY:  FIND THE SMALL DISTANCE FROM ALL THE UNVISITED CITIES AND MAKE THAT ONE AS THE CURRENT CITY THEN GO BACK TO STEP 3
+              # THIS IS THE MOVE STEP
+
+
 
 # Link: http://en.wikipedia.org/wiki/Dijkstra's_algorithm
 
