@@ -288,26 +288,6 @@ end
 # Nodes => points
 # Edge => nature of relationship
 
-# >>>>>>>>>>>>>>>>>>>>>>        Gaby's algorithm      <<<<<<<<<<<<<<<<<<<<<<<<<<<<
-
-# Pseudocode for Gaby's algorithm:
-  # Finding Shortest distance:
-    # going to each road
-    # find the distance of each of them
-    # sort it by the shortest to longest distance
-    # return the road with the shortest distance 
-
-    # Implementation
-      # Start with start_city
-    # >> New w/exeption << :  if only road available, bike_on_road
-    # else
-      # Select the shortest distance for the next city
-      # continue doing loop
-      # end when hits end_city
-      # >>>>>>>>>>>>EXCEPTION<<<<<<<<<<<<
-        # dont go backwards:
-        # bike on road to shortest road but dont bike to roads left 
-
 
 # >>>>>>>>>>>>>>>>>>>       From Original Code      <<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
